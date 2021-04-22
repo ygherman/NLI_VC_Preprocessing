@@ -10,6 +10,7 @@ import dateutil
 import numpy as np
 from fuzzywuzzy import process
 
+import VC_collections
 from VC_collections.AuthorityFiles import *
 from VC_collections.authorities import (
     is_corp,
@@ -2241,31 +2242,34 @@ def create_default_040(df):
     return df
 
 
-def create_MARC_590_sponsors(df: pd.DataFrame, branch: str) -> pd.DataFrame:
+def create_MARC_590_sponsors(df, branch):
     """
         Add 4 fields of MARC 590 for sponsors
     @param df: The
     @param branch: The branch - one of 4: Architect, Dance, Design, Theater.
     """
+
     col_number = last_index_of_reoccurring_column(df, "590")
-    df[f"590_{str(col_number + 1)}"] = "$$sponsor: Jerusalem and Heritage"
-    df[f"590_{str(col_number + 2)}"] = "$$sponsor: Landmarks"
+    df[f"590_{str(col_number + 1)}"] = "$$asponsor: Jerusalem and Heritage"
+    df[f"590_{str(col_number + 2)}"] = "$$asponsor: Landmarks"
     df[
         f"590_{str(col_number + 3)}"
-    ] = "$$sponsor: The Judaica collection at the Harvard University Library"
+    ] = "$$asponsor: The Judaica collection at the Harvard University Library"
 
     if branch == "Architect":
         df[
             f"590_{str(col_number + 4)}"
-        ] = "$$sponsor: Bezalel Academy of Arts and Design, Jerusalem"
+        ] = "$$asponsor: Bezalel Academy of Arts and Design, Jerusalem"
 
     if branch == "Dance":
-        df[f"590_{str(col_number + 4)}"] = "$$sponsor: sponser: Batsheva Dance Company"
+        df[f"590_{str(col_number + 4)}"] = "$$asponsor: Batsheva Dance Company"
 
     if branch == "Design":
         df[
             f"590_{str(col_number + 4)}"
-        ] = "$$sponsor: Shenkar - Engineering. Design. Art."
+        ] = "$$asponsor: Shenkar - Engineering. Design. Art."
 
     if branch == "Theater":
         df[f"590_{str(col_number + 4)}"] = "$$sponsor: University of Haifa"
+    return df
+

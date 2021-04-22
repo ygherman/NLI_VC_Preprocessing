@@ -6,7 +6,7 @@ from VC_collections import marc
 from VC_collections.logger import initialize_logger
 
 sys.path.insert(
-    1, "C:/Users/Yaelg/Google Drive/National_Library/Python/VC_Preprocessing"
+    1, "C:/Users/Yaelg/Google Drive/National_Library/Python/NLI_VC_Preprocessing"
 )
 import VC_collections.value
 
@@ -182,7 +182,6 @@ def main():
 
     # add 524 (CREDIT)
     logger.info("[MARC 524] Creating MARC 597 - CREDITS")
-
     collection = marc.add_MARC_597(collection)
 
     # create 921, 933 (CATALOGUER, CATALOGING DATE)
@@ -244,6 +243,12 @@ def main():
     collection.df_final_data = marc.create_MARC_590(
         collection.df_final_data, copyright_analysis_done
     )
+
+    # create MARC 590 sponser
+    logger.info("[MARC 590 sponsors] - adding sponsors to 590")
+    collection.df_final_data = marc.create_MARC_590_sponsors(collection.df_final_data,
+                                                             collection.branch
+                                                             )
 
     # create MARC 9421 (formerly 561)
     logger.info("[MARC 942] Creating MARC  942 - Ownership and Origial Call number")
