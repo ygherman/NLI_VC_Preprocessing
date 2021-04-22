@@ -8,7 +8,7 @@ from VC_collections.logger import initialize_logger
 sys.path.insert(
     1, "C:/Users/Yaelg/Google Drive/National_Library/Python/VC_Preprocessing"
 )
-from VC_collections.value import *
+import VC_collections.value
 
 from VC_collections.authorities import *
 from VC_collections.Collection import retrieve_collection
@@ -30,12 +30,12 @@ def main():
     initialize_logger(collection.branch, collection.collection_id)
     logger = logging.getLogger(__name__)
     logger.info(
-        f"\n Starting new preprocess of {collection.collection_id}, at: {datetime.now()}"
+        f"\n Starting new preprocess of {collection.collection_id}, at: {VC_collections.value.datetime.now()}"
     )
 
     logger.info(
         f'\nStarting new preprocess {"/".join(str(sys.modules[__name__])[:-1].split("/")[-3:])} of '
-        f"{collection.collection_id}, at: {datetime.now()}"
+        f"{collection.collection_id}, at: {VC_collections.value.datetime.now()}"
     )
     time.sleep(0.5)
 
