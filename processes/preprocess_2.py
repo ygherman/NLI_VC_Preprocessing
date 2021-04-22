@@ -244,7 +244,7 @@ def main():
         collection.df_final_data, copyright_analysis_done
     )
 
-    # create MARC 590 sponser
+    # create MARC 590 sponsors
     logger.info("[MARC 590 sponsors] - adding sponsors to 590")
     collection.df_final_data = marc.create_MARC_590_sponsors(collection.df_final_data,
                                                              collection.branch
