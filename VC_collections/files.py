@@ -8,11 +8,11 @@ import numpy as np
 import pandas as pd
 
 
-def get_google_drive_api_path(path):
-    parent = path.parent
-    for x in parent.iterdir():
-        if x.is_dir() and x != path:
-            yield x
+# def get_google_drive_api_path(path):
+#     parent = path.parent
+#     for x in parent.iterdir():
+#         if x.is_dir() and x != path:
+#             yield x
 
 
 def make_sure_path_exists(path):
