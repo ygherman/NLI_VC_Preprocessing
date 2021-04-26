@@ -23,8 +23,8 @@ from .files import (
     write_excel,
     find_newest_file_in_list,
 )
-from .files import get_google_drive_api_path
-from .project import get_branch_colletionID
+
+from VC_collections.project import get_branch_colletionID
 
 
 def retrieve_collection():
@@ -39,18 +39,17 @@ def get_google_drive_credentials():
         "https://www.googleapis.com/auth/drive",
     ]
 
-    for f in get_google_drive_api_path(Path.cwd()):
-        clientsecret_file_path = Path("./google_drive_api")
-
-        if "google_drive" in f.name:
-            clientsecret_file_path = f
-            break
-    try:
-        return ServiceAccountCredentials.from_json_keyfile_name(
-            clientsecret_file_path / "client_secret.json", scope
-        )
-    except OSError as e:
-        sys.stderr.write("problem with creds!")
+    clientsecret_file_path = Path("google_drive_api") / "client_secret.json"
+    if clientsecret_file_path.is_file():
+        try:
+            return ServiceAccountCredentials.from_json_keyfile_name(
+                clientsecret_file_path, scope
+            )
+        except OSError as e:
+            sys.stderr.write("problem with creds!")
+            return None
+    else:
+        sys.stderr.write("thre is no [client_secret.json] file!")
         return None
 
 
