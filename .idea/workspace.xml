@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bdad6c25-45bc-4b81-ae2b-13f21fa3dc75" name="Default Changelist" comment="remove google api key from github, added to .gitignore">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="bdad6c25-45bc-4b81-ae2b-13f21fa3dc75" name="Default Changelist" comment="remove google api key from github, added to .gitignore" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,7 +41,19 @@
       <option name="presentableId" value="LOCAL‎00001" />
       <updated>1619429564227</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL‎00002" summary="remove google api key from github, added to .gitignore">
+      <created>1619429850721</created>
+      <option name="number" value="LOCAL‎00002" />
+      <option name="presentableId" value="LOCAL‎00002" />
+      <updated>1619429850721</updated>
+    </task>
+    <task id="LOCAL‎00003" summary="remove google api key from github, added to .gitignore">
+      <created>1619429926957</created>
+      <option name="number" value="LOCAL‎00003" />
+      <option name="presentableId" value="LOCAL‎00003" />
+      <updated>1619429926957</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
