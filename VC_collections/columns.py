@@ -219,11 +219,11 @@ def clean_tables(collection):
             f"[{field}] Cleaning {field} column - Removing whitespaces (applying  {clean_text_cols.__name__}) "
         )
         if column_exists(collection.df_collection, field) and not is_column_empty(
-                collection.df_collection, field
+            collection.df_collection, field
         ):
             collection.df_collection = clean_text_cols(collection.df_collection, field)
         if column_exists(collection.df_catalog, field) and not is_column_empty(
-                collection.df_catalog, field
+            collection.df_catalog, field
         ):
             collection.df_catalog = clean_text_cols(collection.df_catalog, field)
 
@@ -233,11 +233,11 @@ def clean_tables(collection):
             f"[{field}] Cleaning {field} column - Removing whitespaces (applying  {rstrip_semicolon.__name__} "
         )
         if column_exists(collection.df_collection, field) and not is_column_empty(
-                collection.df_collection, field
+            collection.df_collection, field
         ):
             collection.df_collection = rstrip_semicolon(collection.df_collection, field)
         if column_exists(collection.df_catalog, field) and not is_column_empty(
-                collection.df_catalog, field
+            collection.df_catalog, field
         ):
             collection.df_catalog = rstrip_semicolon(collection.df_catalog, field)
 
@@ -245,13 +245,13 @@ def clean_tables(collection):
             f"[{field}] Cleaning {field} column - Removing whitespaces (applying  {strip_whitespace_af_semicolon.__name__} "
         )
         if column_exists(collection.df_collection, field) and not is_column_empty(
-                collection.df_collection, field
+            collection.df_collection, field
         ):
             collection.df_collection = strip_whitespace_af_semicolon(
                 collection.df_collection, field
             )
         if column_exists(collection.df_catalog, field) and not is_column_empty(
-                collection.df_catalog, field
+            collection.df_catalog, field
         ):
             collection.df_catalog = strip_whitespace_af_semicolon(
                 collection.df_catalog, field

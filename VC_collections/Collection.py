@@ -123,18 +123,18 @@ def create_xl_from_gspread(client: gspread.client.Client, file_id: str) -> dict:
 def export_entire_catalog(collection, df_sheets_dict, stage):
     if stage == "PRE_FINAL":
         file_path = collection.data_path_raw / (
-                collection.collection_id + "_PRE_FINAL.xlsx"
+            collection.collection_id + "_PRE_FINAL.xlsx"
         )
     elif stage == "FINAL":
         file_path = collection.data_path_processed / (
-                collection.collection_id
-                + "_final_"
-                + datetime.now().strftime("%Y%m%d")
-                + ".xlsx"
+            collection.collection_id
+            + "_final_"
+            + datetime.now().strftime("%Y%m%d")
+            + ".xlsx"
         )
     elif stage == "PRE1_FINAL":
         file_path = collection.data_path_raw / (
-                collection.collection_id + "_PRE1_FINAL.xlsx"
+            collection.collection_id + "_PRE1_FINAL.xlsx"
         )
 
     if type(df_sheets_dict) == list:
@@ -194,13 +194,13 @@ def remove_empty_rows(df):
 
 def remove_instructions_row(df):
     if (
-            df.iloc[0].str.contains("שדה חובה!!").any()
-            or df.iloc[0].str.contains("שדה חובה").any()
+        df.iloc[0].str.contains("שדה חובה!!").any()
+        or df.iloc[0].str.contains("שדה חובה").any()
     ):
         # remove instruction line
         return df.loc[
-               1:,
-               ]
+            1:,
+        ]
     else:
         return df
 
@@ -231,13 +231,13 @@ def fill_missing_cataloging_date(df):
 
 def clean_catalog(df):
     """
-        initial cleanup of the row catalog:
-        - remove instruction/guideline row (mostly row 2)
-        - fill n/a values with empty string
-        - removing columns which were added because of indexing and unindexing with 'unnamed' in heading
-        - fill missing dates - cataloging date
-        :param df: The dataframe to cleanup
-        :return: the cleanup dataframe
+    initial cleanup of the row catalog:
+    - remove instruction/guideline row (mostly row 2)
+    - fill n/a values with empty string
+    - removing columns which were added because of indexing and unindexing with 'unnamed' in heading
+    - fill missing dates - cataloging date
+    :param df: The dataframe to cleanup
+    :return: the cleanup dataframe
 
     """
     df = df.rename(columns={"סימול/מספר מזהה": "סימול", "סימול פרויקט": "סימול"})
@@ -285,9 +285,9 @@ def add_current_owner(df_collection, df_credits, collection_id):
     elif "סימול הארכיון" in list(df_collection.columns):
         df_collection = df_collection.set_index("סימול הארכיון")
     if (
-            "בעלים נוכחי" in list(df_collection.columns)
-            and df_collection.loc[df_collection["רמת תיאור"] == "אוסף", "בעלים נוכחי"][0]
-            != ""
+        "בעלים נוכחי" in list(df_collection.columns)
+        and df_collection.loc[df_collection["רמת תיאור"] == "אוסף", "בעלים נוכחי"][0]
+        != ""
     ):
         if df_credits.loc[collection_id, "מיקום הפקדה עבור בעלים נוכחי"] != "":
             df_collection.loc[collection_id, "בעלים נוכחי"] = df_credits.loc[
@@ -308,7 +308,9 @@ def find_last_updated_gspread(client, collection_id):
         sys.stderr.write(f"no file for {collection_id} found in google drive \n")
         return client, input("if you have the ID of the file, please enter manually: ")
 
-    file_index = find_newest_file_in_list(files, collection_id + "_final_to_alma_", mode="mid")
+    file_index = find_newest_file_in_list(
+        files, collection_id + "_final_to_alma_", mode="mid"
+    )
 
     return (
         client,
@@ -429,7 +431,7 @@ class Collection:
         except:
 
             assert (
-                    combined_catalog is not None
+                combined_catalog is not None
             ), "the Collection and Catalog dataframes could not be combined"
             combined_catalog = remove_unnamed_cols(combined_catalog)
             combined_catalog = combined_catalog.set_index("UNITID")
@@ -448,9 +450,9 @@ class Collection:
 
     def create_catalog_metadata_file(self):
         """
-            creates a conf file in json format, with the metadata about the data used in the process:
-            cms, branch, collection_id, BASE_PATH of the directory, google sheet file name of the used collection sheet,
-            and the google sheet file id of the used collection google spreadsheet.
+        creates a conf file in json format, with the metadata about the data used in the process:
+        cms, branch, collection_id, BASE_PATH of the directory, google sheet file name of the used collection sheet,
+        and the google sheet file id of the used collection google spreadsheet.
         """
         catalog_metadata_fields = [
             "cms",
@@ -502,13 +504,13 @@ class Collection:
             :return:
             """
             if (
-                    df.iloc[0].str.contains("שדה חובה!!").any()
-                    or df.iloc[0].str.contains("שדה חובה").any()
+                df.iloc[0].str.contains("שדה חובה!!").any()
+                or df.iloc[0].str.contains("שדה חובה").any()
             ):
                 # remove instruction line
                 return df.loc[
-                       1:,
-                       ]
+                    1:,
+                ]
             else:
                 return df
 
@@ -524,7 +526,7 @@ class Collection:
                 return "יצירות"
             if "Dance" in branch:
                 assert (
-                        "יצירות - מחול" in xl_file.sheet_names
+                    "יצירות - מחול" in xl_file.sheet_names
                 ), " sheet יצירות - מחול does not exist in file."
                 return "יצירות - מחול"
             elif "Architect" in branch:
@@ -532,7 +534,7 @@ class Collection:
                     return "יצירות - אדריכלות"
             elif "Theater" in branch:
                 assert (
-                        "יצירות - תאטרון" in xl_file.sheet_names
+                    "יצירות - תאטרון" in xl_file.sheet_names
                 ), " sheet יצירות - תאטרון does not exist in file."
                 return "יצירות - תאטרון"
 
@@ -582,7 +584,7 @@ class Collection:
         dataframe2export.index = dataframe2export.index.astype(str)
         dt_now_temp = datetime.now().strftime("%Y%m%d")
         preprocess_filename = self.data_path_raw / (
-                self.collection_id + "_" + dt_now_temp + "_preprocessing_test.xlsx"
+            self.collection_id + "_" + dt_now_temp + "_preprocessing_test.xlsx"
         )
         write_excel(dataframe2export, preprocess_filename, "Catalog")
 
@@ -601,9 +603,9 @@ class Collection:
 
         # create directory and sub-folders for collection
         self.BASE_PATH = (
-                Path("C:/Users/Yaelg/Google Drive/National_Library/Python")
-                / (branch)
-                / collection_id
+            Path("C:/Users/Yaelg/Google Drive/National_Library/Python")
+            / (branch)
+            / collection_id
         )
 
         # initialize directory with all folder and sub-folders for the collection
@@ -731,13 +733,13 @@ class Collection:
         df = self.marc_data
         #  MARCXML file
         output_file = self.data_path_processed / (
-                self.collection_id + "_final_" + self.dt_now + ".xml"
+            self.collection_id + "_final_" + self.dt_now + ".xml"
         )
         writer = XMLWriter(open(output_file, "wb"))
 
         # MarcEdit MRK file
         output_file_mrk = self.data_path_processed / (
-                self.collection_id + "_finalMRK_" + self.dt_now + ".txt"
+            self.collection_id + "_finalMRK_" + self.dt_now + ".txt"
         )
         mrk_file = open(output_file_mrk, "w", encoding="utf8")
 
@@ -830,7 +832,7 @@ class Collection:
         df = self.marc_data
         ad = AlphabetDetector()
         output_file_name = self.data_path_processed / (
-                self.collection_id + "_final_" + self.dt_now + ".txt"
+            self.collection_id + "_final_" + self.dt_now + ".txt"
         )
 
         with open(output_file_name, "w", encoding="utf8") as f:

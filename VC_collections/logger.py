@@ -39,9 +39,7 @@ def initialize_logger(branch, collection_id):
     """
     # show_loggers()
 
-    reports_path = (
-            Path.cwd().parent / branch / collection_id / "Data" / "reports"
-    )
+    reports_path = Path.cwd().parent / branch / collection_id / "Data" / "reports"
 
     logging.basicConfig(
         level=logging.DEBUG,

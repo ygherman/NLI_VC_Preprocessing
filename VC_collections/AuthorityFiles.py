@@ -151,11 +151,11 @@ def order_archival_material(df_arch_mat_auth):
     )
 
     df_arch_mat_search["all_terms"] = (
-            df_arch_mat_search["clean_value"].map(str)
-            + ";"
-            + df_arch_mat_search["ARCHIVAL_MATERIAL"]
-            + ";"
-            + df_arch_mat_search["ARCHIVAL_MATERIAL_ALT_HEB"]
+        df_arch_mat_search["clean_value"].map(str)
+        + ";"
+        + df_arch_mat_search["ARCHIVAL_MATERIAL"]
+        + ";"
+        + df_arch_mat_search["ARCHIVAL_MATERIAL_ALT_HEB"]
     )
 
     arch_mat_search_dict = pd.Series(
@@ -173,7 +173,7 @@ def order_archival_material(df_arch_mat_auth):
 
 def order_credits(df_credits):
     df_credits["597"] = (
-            "$$a" + df_credits["קרדיט עברית"].map(str) + "$$b" + df_credits["קרדיט אנגלית"]
+        "$$a" + df_credits["קרדיט עברית"].map(str) + "$$b" + df_credits["קרדיט אנגלית"]
     )
     return df_credits
 

@@ -11,7 +11,7 @@ from VC_collections.project import lookup_rosetta_file
 
 def create_mmsid_dict(ROS_file: minidom) -> dict:
     """
-        The function takes the MARCxml file of the collection, which resides in ./[branch]/[collection]/Digitization/ROS
+        The function takes the MARCxml file of the collection, which resides in ./[branch]/[collec  tion]/Digitization/ROS
         directory, and that was parsed into a minidom xml object, extract the MMS ID (001 tag) and the 093 (Rosetta
         link) field, with all it's subfields. Saves the MMS ID and 907 subfield in a dictionary of dictionaries.
     :param ROS_file: The MARCxml file of the collection parsed into a minidom object.
@@ -78,7 +78,7 @@ def main():
     df.index.name = "mmsid"
 
     file_full_path = collection.aleph_custom04_path / (
-            collection.collection_id + "_alma_sysno.xlsx"
+        collection.collection_id + "_alma_sysno.xlsx"
     )
     check_custom04_file(file_full_path)
 

@@ -78,7 +78,9 @@ def get_alma_sid(custom04_path, collectionID, df):
     try:
         alma_sysno_file = os.path.join(custom04_path, collectionID + "_alma_sysno.xlsx")
     except:
-        sys.stderr.write(f"There is no alma_sysno_file File for collection: {collectionID}.")
+        sys.stderr.write(
+            f"There is no alma_sysno_file File for collection: {collectionID}."
+        )
 
     # parse sysno file
     try:
@@ -131,7 +133,7 @@ def get_alma_sid(custom04_path, collectionID, df):
 
 
 def get_branch_colletionID(
-        branch: str = "", collectionID: str = "", batch: bool = False
+    branch: str = "", collectionID: str = "", batch: bool = False
 ) -> (str, str, str):
     """
         Get Branch and CollectionID

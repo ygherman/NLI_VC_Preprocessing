@@ -68,9 +68,9 @@ def check_missing_rootids(collection):
     logger.info("[ROOTID's] checking for missing root ids in the index")
     for value in root_ids:
         if (
-                value in collection.full_catalog.index
-                or value == ""
-                or value == collection.collection_id
+            value in collection.full_catalog.index
+            or value == ""
+            or value == collection.collection_id
         ):
             continue
         else:
@@ -80,11 +80,10 @@ def check_missing_rootids(collection):
             )
             missing_root_ids.append(str(value))
 
-    assert len(missing_root_ids) == 0, (
-        ""
-        "The following ROOT IDs do not appear in UNITID: \n {}".format(
-            ", ".join(missing_root_ids)
-        )
+    assert (
+        len(missing_root_ids) == 0
+    ), "" "The following ROOT IDs do not appear in UNITID: \n {}".format(
+        ", ".join(missing_root_ids)
     )
 
 
@@ -251,7 +250,7 @@ def clean_record_title(df):
 def create_authorities_report(collection, authority_type):
     global combined_authority_col, authority_col
     df = collection.full_catalog
-    col = ''
+    col = ""
 
     if authority_type == "PERS":
         col = "PERSNAME"
@@ -460,7 +459,7 @@ def add_normal_dates_to_section_record(df, collection_id):
         df["DATE_START"] = ""
         df["DATE_END"] = ""
     if pd.isnull(df.loc[collection_id, "DATE_START"]) and pd.isnull(
-            df.loc[collection_id, "DATE_END"]
+        df.loc[collection_id, "DATE_END"]
     ):
         date = df.loc[collection_id, "DATE"]
         pattern = re.compile(r"\d{4}")
@@ -653,7 +652,7 @@ def main():
     collection.full_catalog = check_values_against_cvoc(
         collection.full_catalog,
         "PUBLICATION_COUNTRY",
-        Authority_instance.countries_mapping_dict
+        Authority_instance.countries_mapping_dict,
     )
 
     if "TO_DELETE" in list(collection.full_catalog.columns):
@@ -678,16 +677,16 @@ def main():
         logger.info("[DATES] cleaning dates - start date")
         collection.full_catalog["DATE_START"] = (
             collection.full_catalog["DATE_START"]
-                .astype(str)
-                .replace(r"\.0$", "", regex=True)
-                .apply(clean_date_format)
+            .astype(str)
+            .replace(r"\.0$", "", regex=True)
+            .apply(clean_date_format)
         )
         logger.info("[DATES] cleaning dates - end date")
         collection.full_catalog["DATE_END"] = (
             collection.full_catalog["DATE_END"]
-                .astype(str)
-                .replace(r"\.0$", "", regex=True)
-                .apply(clean_date_format)
+            .astype(str)
+            .replace(r"\.0$", "", regex=True)
+            .apply(clean_date_format)
         )
 
     logger.info(
@@ -754,7 +753,8 @@ def main():
     if df_missing_records_in_alma is not None:
         logger.error(
             "Not all records have MMS ID - please create alma records for missing MMS IDs!"
-            f'[missing MMSID] please import missing records in catalog to Alma')
+            f"[missing MMSID] please import missing records in catalog to Alma"
+        )
 
         collection.missing_records = drop_col_if_exists(
             df_missing_records_in_alma.reset_index().set_index("סימול"), "001"
@@ -763,7 +763,9 @@ def main():
 
     else:
 
-        logger.info(f"Adding the Number of digitization files - as a column to the table")
+        logger.info(
+            f"Adding the Number of digitization files - as a column to the table"
+        )
         collection = add_number_of_files(collection)
 
         logger.info(

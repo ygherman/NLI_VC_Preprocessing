@@ -206,7 +206,7 @@ def get_creation_date(path_to_file):
 
 
 def find_newest_file_in_list(
-        files_list: list, file_name_pattern: str, mode: str = "start"
+    files_list: list, file_name_pattern: str, mode: str = "start"
 ) -> object:
     """
 
@@ -354,32 +354,32 @@ def get_file_path(stage, df, pattern=""):
     if stage == "raw Data":
         for index, row in df.iterrows():
             dir_path = (
-                    Path.cwd()
-                    / ("VC-" + str(row["branch"]))
-                    / str(row["collection"])
-                    / "Data"
-                    / "raw"
+                Path.cwd()
+                / ("VC-" + str(row["branch"]))
+                / str(row["collection"])
+                / "Data"
+                / "raw"
             )
             check_folder(dir_path, str(row["collection"]))
 
     elif stage == "processed Data":
         for index, row in df.iterrows():
             dir_path = (
-                    Path.cwd()
-                    / ("VC-" + str(row["branch"]))
-                    / str(row["collection"])
-                    / "Data"
-                    / "processed"
+                Path.cwd()
+                / ("VC-" + str(row["branch"]))
+                / str(row["collection"])
+                / "Data"
+                / "processed"
             )
             check_folder(dir_path, str(row["collection"]))
 
     else:
         for index, row in df.iterrows():
             dir_path = (
-                    Path.cwd()
-                    / ("VC-" + str(row["branch"]))
-                    / str(row["collection"])
-                    / stage
+                Path.cwd()
+                / ("VC-" + str(row["branch"]))
+                / str(row["collection"])
+                / stage
             )
             check_folder(dir_path, str(row["collection"]))
 

@@ -218,14 +218,14 @@ def create_MARC_245(df):
 
 def create_246_value(title):
     lang = check_lang(title)
-    print(f'lang found for [{title}]is: [{lang}]')
+    print(f"lang found for [{title}]is: [{lang}]")
     if lang == "ara":
         prefix = "Arabic Title:"
     elif lang == "eng":
         prefix = "English Title:"
     else:
-        prefix = input(f'please enter the language of the following title: [{title}]\n')
-    val = f'$$i{prefix}$$a{title}$$9{lang}'
+        prefix = input(f"please enter the language of the following title: [{title}]\n")
+    val = f"$$i{prefix}$$a{title}$$9{lang}"
     return val
 
 
@@ -317,21 +317,21 @@ def create_MARC_500(df):
         if "מיכל" in list(df.columns.values) and row["מיכל"] != "":
             new_value = new_value + "מספר מיכל: " + str(row["מיכל"]) + "; "
         if (
-                "קוד תיק ארכיון" in list(df.columns.values)
-                and str(row["קוד תיק ארכיון"]).replace(".0", "") != ""
+            "קוד תיק ארכיון" in list(df.columns.values)
+            and str(row["קוד תיק ארכיון"]).replace(".0", "") != ""
         ):
             new_value = new_value + "קוד תיק ארכיון: " + row["קוד תיק ארכיון"] + "; "
         if (
-                "הערות גלוי למשתמש קצה" in list(df.columns.values)
-                and row["הערות גלוי למשתמש קצה"] != ""
+            "הערות גלוי למשתמש קצה" in list(df.columns.values)
+            and row["הערות גלוי למשתמש קצה"] != ""
         ):
             new_value = new_value + "הערות: " + row["הערות גלוי למשתמש קצה"] + "; "
         if (
-                "מילות מפתח_מקומות" in list(df.columns.values)
-                and row["מילות מפתח_מקומות"] != ""
+            "מילות מפתח_מקומות" in list(df.columns.values)
+            and row["מילות מפתח_מקומות"] != ""
         ):
             new_value = (
-                    new_value + "מקומות המוזכרים בתיק: " + row["מילות מפתח_מקומות"] + "; "
+                new_value + "מקומות המוזכרים בתיק: " + row["מילות מפתח_מקומות"] + "; "
             )
 
         if new_value == "$$a":
@@ -371,8 +371,8 @@ def create_MARC_500s_4collection(df):
 
 
 def construct_942(
-        row,
-        _a,
+    row,
+    _a,
 ):
     ad = alphabet_detector.AlphabetDetector()
 
@@ -464,7 +464,7 @@ def all_rest_creators(x):
     :return x: the list without the first creator occurance
     """
     if ";" in x:
-        return x[x.find(";") + 1:]
+        return x[x.find(";") + 1 :]
     else:
         return ""
 
@@ -500,7 +500,7 @@ def add_MARC_role(val, lang):
 
 
 def name_lang_check(
-        val, mode="PERS", branch=None
+    val, mode="PERS", branch=None
 ):  # TODO choreographc works - need to add branch parameter
     """
         Checks the language of a given value (mostly English and Hebrew), in order to add the $e subfield for
@@ -784,18 +784,18 @@ def create_MARC_710_current_owner(collection, df_credits):
         )
 
         if (
-                df_credits.loc[collection.collection_id, "מיקום הפקדה עבור בעלים נוכחי"]
-                != ""
+            df_credits.loc[collection.collection_id, "מיקום הפקדה עבור בעלים נוכחי"]
+            != ""
         ):
             df["בעלים נוכחי"] = df_credits.loc[
                 collection.collection_id, "מיקום הפקדה עבור בעלים נוכחי"
             ]
             df["7102"] = (
-                    df["7102"].astype(str)
-                    + ";"
-                    + df["בעלים נוכחי"].apply(
-                lambda x: "$$a" + create_710_current_owner_val(x) if x != "" else ""
-            )
+                df["7102"].astype(str)
+                + ";"
+                + df["בעלים נוכחי"].apply(
+                    lambda x: "$$a" + create_710_current_owner_val(x) if x != "" else ""
+                )
             )
         else:
             logger.error(f"No מיקום הפקדה for collection: {collection.collection_id}")
@@ -964,10 +964,10 @@ def check_values_arch_mat(df, arch_mat_col, arch_mat_mapping_dict):
 
 def create_MARC_default_copyright(df):
     df["952_default_copyright"] = (
-            "$$aCopyright status not determined; No contract"
-            + "$$bNo copyright analysis"
-            + "$$cYael Gherman {}".format(datetime.today().strftime("%Y%m%d"))
-            + "$$dללא ניתוח מצב זכויות"
+        "$$aCopyright status not determined; No contract"
+        + "$$bNo copyright analysis"
+        + "$$cYael Gherman {}".format(datetime.today().strftime("%Y%m%d"))
+        + "$$dללא ניתוח מצב זכויות"
     )
 
     df["952"] = df["952_default_copyright"].astype("str") + df["952_g"]
@@ -975,8 +975,8 @@ def create_MARC_default_copyright(df):
     df = drop_col_if_exists(df, "952_g")
 
     df["939"] = (
-            "$$aאיסור העתקה"
-            + "$$uhttp://web.nli.org.il/sites/NLI/Hebrew/library/items-terms-of-use/Pages/nli-copying-prohibited.aspx"
+        "$$aאיסור העתקה"
+        + "$$uhttp://web.nli.org.il/sites/NLI/Hebrew/library/items-terms-of-use/Pages/nli-copying-prohibited.aspx"
     )
     df["903"] = "$$aStaff only$$b000000018"
 
@@ -1325,15 +1325,15 @@ def create_MARC_260_008_date(df, start_date, end_date, text_date):
 
     df[start_date] = (
         df[start_date]
-            .astype(str)
-            .replace(r"\.0$", "", regex=True)
-            .apply(clean_date_format)
+        .astype(str)
+        .replace(r"\.0$", "", regex=True)
+        .apply(clean_date_format)
     )
     df[end_date] = (
         df[end_date]
-            .astype(str)
-            .replace(r"\.0$", "", regex=True)
-            .apply(clean_date_format)
+        .astype(str)
+        .replace(r"\.0$", "", regex=True)
+        .apply(clean_date_format)
     )
 
     """
@@ -1496,10 +1496,10 @@ def construct_921(df):
 
     try:
         df["921"] = (
-                "$$a"
-                + df["921"].map(str)
-                + " "
-                + df["תאריך הרישום"].apply(create_date_format)
+            "$$a"
+            + df["921"].map(str)
+            + " "
+            + df["תאריך הרישום"].apply(create_date_format)
         )
     except Exception as e:
         sys.stderr.write(f"[Error] please correct {e}")
@@ -1511,10 +1511,10 @@ def construct_921(df):
 def construct_933(df):
     df_explode_933 = (
         df["933"]
-            .str.split(";", expand=True)
-            .rename(columns=lambda x: f"933_{x + 1}")
-            .replace(np.nan, "")
-            .replace("nan", "")
+        .str.split(";", expand=True)
+        .rename(columns=lambda x: f"933_{x + 1}")
+        .replace(np.nan, "")
+        .replace("nan", "")
     )
     for col in list(df_explode_933):
         df_explode_933[col] = df_explode_933[col].map(
@@ -1530,10 +1530,10 @@ def construct_933(df):
                 continue
             else:
                 df.loc[index, col] = (
-                        "$$a"
-                        + str(row[col])
-                        + " "
-                        + create_date_format(df.loc[index, "תאריך הרישום"])
+                    "$$a"
+                    + str(row[col])
+                    + " "
+                    + create_date_format(df.loc[index, "תאריך הרישום"])
                 )
     df = drop_col_if_exists(df, "933")
     return df
@@ -1644,7 +1644,7 @@ def create_citation_heb(index, collection_name):
 
 def create_citation_eng(index, collection_name):
     citation_eng = (
-            collection_name + ", " + "National Library of Israel, Reference code: " + index
+        collection_name + ", " + "National Library of Israel, Reference code: " + index
     )
     return citation_eng
 
@@ -1790,10 +1790,10 @@ def create_MARC_336(df):
     """
     arch_mat_map_336 = (
         Authority_instance.df_arch_mat_auth.loc[
-        :, ["ARCHIVAL_MATERIAL", "rdacontent 336"]
+            :, ["ARCHIVAL_MATERIAL", "rdacontent 336"]
         ]
-            .set_index("ARCHIVAL_MATERIAL")
-            .to_dict()["rdacontent 336"]
+        .set_index("ARCHIVAL_MATERIAL")
+        .to_dict()["rdacontent 336"]
     )
 
     for index, row in df.iterrows():
@@ -1898,9 +1898,9 @@ def create_MARC_534(df):
     if column_exists(df, "תאריך יצירת החפץ / הטקסט המקורי מוקדם"):
         new_534_col = "534_" + str(last_index_of_reoccurring_column(df, "534"))
         df[new_534_col] = (
-                df["תאריך יצירת החפץ / הטקסט המקורי מוקדם"].map(str)
-                + " - "
-                + df["תאריך יצירת החפץ / הטקסט המקורי מאוחר"].astype(str)
+            df["תאריך יצירת החפץ / הטקסט המקורי מוקדם"].map(str)
+            + " - "
+            + df["תאריך יצירת החפץ / הטקסט המקורי מאוחר"].astype(str)
         )
         df[new_534_col] = df[new_534_col].map(
             lambda x: "$$aנוצר לראשונה בין התאריכים: " + str(x).replace(".0", "")
@@ -1925,7 +1925,7 @@ def create_MARC_590_digitization_data(row):
         new_value = new_value + "סריקה דו-צדדית: " + str(row["סריקה דו-צדדית"]) + ";"
     if str(row["מספר קבצים מוערך"]) != "":
         new_value = (
-                new_value + "מספר קבצים מוערך: " + str(row["מספר קבצים מוערך"]) + ";"
+            new_value + "מספר קבצים מוערך: " + str(row["מספר קבצים מוערך"]) + ";"
         )
     if new_value == "מסלולי דיגיטציה: ":
         return ""
@@ -1944,22 +1944,22 @@ def create_MARC_590(df, copyright_analysis_done):
         for index, row in df.iterrows():
             if "לא מוכן" in str(row["הערות לא גלוי למשתמש"]):
                 df.loc[index, "הערות לא גלוי למשתמש"] = (
-                        str(row["הערות לא גלוי למשתמש"])
-                        + ";Visual art ready for copyright analysis"
+                    str(row["הערות לא גלוי למשתמש"])
+                    + ";Visual art ready for copyright analysis"
                 )
             else:
                 continue
 
     if not copyright_analysis_done:
         df["הערות לא גלוי למשתמש"] = (
-                df["הערות לא גלוי למשתמש"].astype(str)
-                + ";Visual art ready for copyright analysis"
+            df["הערות לא גלוי למשתמש"].astype(str)
+            + ";Visual art ready for copyright analysis"
         )
 
     df = explode_col_to_new_df(df, "הערות לא גלוי למשתמש", start=2)
     cols_590 = [col for col in list(df.columns) if "הערות לא גלוי למשתמש" in col]
     for col in cols_590:
-        new_col = "590" + col[col.find("_"):]
+        new_col = "590" + col[col.find("_") :]
         df[new_col] = df[col].apply(lambda x: "$$a" + str(x) if str(x) != "" else "")
 
     return df
@@ -1968,9 +1968,9 @@ def create_MARC_590(df, copyright_analysis_done):
 def create_MARC_584(df):
     # TODO not used in preprocessing2
     if (
-            column_exists(df, "ACCURALS")
-            or column_exists(df, "אוסףפתוח")
-            or column_exists(df, "אוסף פתוח")
+        column_exists(df, "ACCURALS")
+        or column_exists(df, "אוסףפתוח")
+        or column_exists(df, "אוסף פתוח")
     ):
         accurals_mapper = {
             "כן": "האוסף המקורי ממשיך לצבור חומרים (אוסף פתוח)a$",
@@ -2066,7 +2066,7 @@ def create_035_dict(file):
             if e.attributes["tag"].value == "035":
                 for sb in e.getElementsByTagName("subfield"):
                     dd["035"] = (
-                            "$$" + sb.attributes["code"].value + sb.childNodes[0].data
+                        "$$" + sb.attributes["code"].value + sb.childNodes[0].data
                     )
                     dd["035"] = dd["035"].replace("$$$$", "$$")
         d[mms_id] = dd
@@ -2197,8 +2197,8 @@ def export_MARCXML_final_table(collection):
     logger = logging.getLogger()
     logger.info(f"[MARCXML] create final MARC XML file for {collection.collection_id}")
     df_final_cols = [
-                        x for x in list(collection.df_final_data.columns) if x[0].isdigit()
-                    ] + ["LDR"]
+        x for x in list(collection.df_final_data.columns) if x[0].isdigit()
+    ] + ["LDR"]
     collection.marc_data = collection.df_final_data[df_final_cols]
 
     counter, run_time = collection.create_MARC_XML()
@@ -2272,4 +2272,3 @@ def create_MARC_590_sponsors(df, branch):
     if branch == "Theater":
         df[f"590_{str(col_number + 4)}"] = "$$sponsor: University of Haifa"
     return df
-

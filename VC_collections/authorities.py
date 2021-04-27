@@ -73,13 +73,13 @@ def split_creators_by_type(df, col_name):
         df.COMBINED_CREATORS = df.COMBINED_CREATORS.str.strip()
     else:
         df.COMBINED_CREATORS = (
-                df["FIRST_CREATOR_PERS"].astype(str)
-                + ";"
-                + df["FIRST_CREATOR_CORP"]
-                + ";"
-                + df["COMBINED_CREATORS_PERS"]
-                + ";"
-                + df["COMBINED_CREATORS_CORPS"]
+            df["FIRST_CREATOR_PERS"].astype(str)
+            + ";"
+            + df["FIRST_CREATOR_CORP"]
+            + ";"
+            + df["COMBINED_CREATORS_PERS"]
+            + ";"
+            + df["COMBINED_CREATORS_CORPS"]
         )
 
     df.COMBINED_CREATORS_CORPS = df.COMBINED_CREATORS_CORPS.str.strip()
@@ -274,7 +274,7 @@ def find_role(name):
     name = name.strip()
     if "[" in name:
         start = name.find("[") + 1
-        role = name[start: name.find("]")]
+        role = name[start : name.find("]")]
         new_name = name.replace(role, "").replace("[]", "").strip()
         if new_name == "":
             sys.stderr.write(
@@ -306,17 +306,17 @@ def find_name(name):
 def create_combined_creators(row):
     if row["FIRST_CREATOR_PERS"] != "":
         first_creator = (
-                str(row["FIRST_CREATOR_PERS"])
-                + " ["
-                + str(row["TYPE_FIRST_CREATOR_PERS"])
-                + "]"
+            str(row["FIRST_CREATOR_PERS"])
+            + " ["
+            + str(row["TYPE_FIRST_CREATOR_PERS"])
+            + "]"
         )
     elif row["FIRST_CREATOR_CORP"] != "":
         first_creator = (
-                str(row["FIRST_CREATOR_CORP"])
-                + " ["
-                + str(row["TYPE_FIRST_CREATOR_CORP"])
-                + "]"
+            str(row["FIRST_CREATOR_CORP"])
+            + " ["
+            + str(row["TYPE_FIRST_CREATOR_CORP"])
+            + "]"
         )
     else:
         first_creator = row["COLLECTION_CREATOR"]
@@ -325,7 +325,7 @@ def create_combined_creators(row):
         add_creators = row["ADD_CREATORS"]
     else:
         add_creators = (
-                str(row["ADD_CREATOR_PERS"]) + ";" + str(row["ADD_CREATOR_CORPS"])
+            str(row["ADD_CREATOR_PERS"]) + ";" + str(row["ADD_CREATOR_CORPS"])
         )
 
     combined_creators = f"{first_creator};{add_creators}"
@@ -449,11 +449,11 @@ def map_relators(df, authority_role_list):
 
 
 def correct_relators(
-        collection: Collection,
-        authority_role_list: list,
-        roles: list,
-        role_not_found: list,
-        temp_role_dict: dict,
+    collection: Collection,
+    authority_role_list: list,
+    roles: list,
+    role_not_found: list,
+    temp_role_dict: dict,
 ):
     """
 
@@ -480,7 +480,7 @@ def correct_relators(
         dfs_roles_list = [df_roles, df_indexes_roles_not_found]
 
         roles_check_file_name = (
-                collection.collection_id + "_roles_check" + collection.dt_now + ".xlsx"
+            collection.collection_id + "_roles_check" + collection.dt_now + ".xlsx"
         )
         logger.info(
             f"[ROLES] Creating {collection.collection_id} _roles_check_ "
@@ -671,7 +671,7 @@ def check_lang(val):
     lang = list(ad.detect_alphabet(val))[0].lower()
     eng_lang_mapping = (
         Authority_instance.df_languages.reset_index()
-            .set_index("שם שפה אנגלית")["קוד שפה"]
-            .to_dict()
+        .set_index("שם שפה אנגלית")["קוד שפה"]
+        .to_dict()
     )
     return eng_lang_mapping[lang.capitalize()]
