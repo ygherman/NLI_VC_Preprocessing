@@ -3,3 +3,8 @@
 *.ini
 *~  
 /.idea
+/google_drive_api/client_secret.json
+/desktop.ini
+/tesing.ipynb
+/file_ids.xlsx
+/files_table.py
