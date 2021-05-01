@@ -142,17 +142,23 @@ class Test_MARC(TestCase):
         from VC_collections.marc import create_246_value
 
         test_246_data = {
-            "כותרת מתורגמת":
-                ["مخطط تنفيذي شامل لحوض وادي النار",
-                 "Example Title",
-                 "דוגמה עברית"]
+            "כותרת מתורגמת": [
+                "مخطط تنفيذي شامل لحوض وادي النار",
+                "Example Title",
+                "דוגמה עברית",
+            ]
         }
         test_246_df = pd.DataFrame(data=test_246_data)
         test_text_ARA = "مخطط تنفيذي شامل لحوض وادي النار"
         test_text_ENG = "Example Title"
 
-        self.assertEqual(create_246_value(test_text_ENG), "$$iEnglish Title:$$aExample Title$$9lat")
-        self.assertEqual(create_246_value(test_text_ARA), "$$iArabic Title:$$aمخطط تنفيذي شامل لحوض وادي النار$$9ara")
+        self.assertEqual(
+            create_246_value(test_text_ENG), "$$iEnglish Title:$$aExample Title$$9lat"
+        )
+        self.assertEqual(
+            create_246_value(test_text_ARA),
+            "$$iArabic Title:$$aمخطط تنفيذي شامل لحوض وادي النار$$9ara",
+        )
 
 
 if __name__ == "__main__":

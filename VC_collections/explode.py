@@ -64,8 +64,8 @@ def explode_col_to_new_df(df, col, sep=";", start=0):
     """
     df_explode = (
         df[col]
-            .str.split(sep, expand=True)
-            .rename(columns=lambda x: col + f"_{start + x + 1}")
+        .str.split(sep, expand=True)
+        .rename(columns=lambda x: col + f"_{start + x + 1}")
     )
     df = pd.concat([df, df_explode], axis=1)
     df = df.fillna("")
@@ -103,8 +103,8 @@ def horizontal_explode_creators(df_temp):
     :return: the exploded creators dataframe
     """
     if (
-            "COMBINED_CREATORS_PERS" in df_temp.columns.values
-            and "COMBINED_CREATORS_CORPS" in df_temp.columns.values
+        "COMBINED_CREATORS_PERS" in df_temp.columns.values
+        and "COMBINED_CREATORS_CORPS" in df_temp.columns.values
     ):
 
         for i, row in df_temp.iterrows():

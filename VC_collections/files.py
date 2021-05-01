@@ -8,11 +8,11 @@ import numpy as np
 import pandas as pd
 
 
-def get_google_drive_api_path(path):
-    parent = path.parent
-    for x in parent.iterdir():
-        if x.is_dir() and x != path:
-            yield x
+# def get_google_drive_api_path(path):
+#     parent = path.parent
+#     for x in parent.iterdir():
+#         if x.is_dir() and x != path:
+#             yield x
 
 
 def make_sure_path_exists(path):
@@ -206,7 +206,7 @@ def get_creation_date(path_to_file):
 
 
 def find_newest_file_in_list(
-        files_list: list, file_name_pattern: str, mode: str = "start"
+    files_list: list, file_name_pattern: str, mode: str = "start"
 ) -> object:
     """
 
@@ -354,32 +354,32 @@ def get_file_path(stage, df, pattern=""):
     if stage == "raw Data":
         for index, row in df.iterrows():
             dir_path = (
-                    Path.cwd()
-                    / ("VC-" + str(row["branch"]))
-                    / str(row["collection"])
-                    / "Data"
-                    / "raw"
+                Path.cwd()
+                / ("VC-" + str(row["branch"]))
+                / str(row["collection"])
+                / "Data"
+                / "raw"
             )
             check_folder(dir_path, str(row["collection"]))
 
     elif stage == "processed Data":
         for index, row in df.iterrows():
             dir_path = (
-                    Path.cwd()
-                    / ("VC-" + str(row["branch"]))
-                    / str(row["collection"])
-                    / "Data"
-                    / "processed"
+                Path.cwd()
+                / ("VC-" + str(row["branch"]))
+                / str(row["collection"])
+                / "Data"
+                / "processed"
             )
             check_folder(dir_path, str(row["collection"]))
 
     else:
         for index, row in df.iterrows():
             dir_path = (
-                    Path.cwd()
-                    / ("VC-" + str(row["branch"]))
-                    / str(row["collection"])
-                    / stage
+                Path.cwd()
+                / ("VC-" + str(row["branch"]))
+                / str(row["collection"])
+                / stage
             )
             check_folder(dir_path, str(row["collection"]))
 
