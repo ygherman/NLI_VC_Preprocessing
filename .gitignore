@@ -1,0 +1,9 @@
+/venv/google_drive_api
+/venv/Database
+/.idea
+/venv/.ipynb_checkpoints
+/venv/file_ids.xlsx
+/venv/files_table.py
+/venv/tesing.ipynb
+*.ini
+/venv/VC_collections/__pycache__
